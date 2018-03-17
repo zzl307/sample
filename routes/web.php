@@ -12,5 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+// 测试页面
+Route::get('/index', 'StaticPagesController@index');
