@@ -11,9 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
+// 
+
+Route::get('/', 'StaticPagesController@index');
 
 // 测试页面
 Route::get('/index', 'StaticPagesController@index');
+
+// 显示用户的信息
+Route::resource('users', 'UsersController');
