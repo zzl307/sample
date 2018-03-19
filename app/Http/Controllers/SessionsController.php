@@ -28,15 +28,22 @@ class SessionsController extends Controller
            	'password' => 'required'
     	]);
 
-    	if (\Auth::attempt($credentials, $request->has('remember'))) {
-    		session()->flash('success', '登录成功');
+        if (\Auth::user()->activated) {
+            if (\Auth::attempt($credentials, $request->has('remember'))) {
+                session()->flash('success', '登录成功');
 
-    		return redirect()->intended(route('users.show', [\Auth::user()]));
-    	} else {
-    		session()->flash('danger', '很抱歉， 邮箱或密码不匹配');
+                return redirect()->intended(route('users.show', [\Auth::user()]));
+            } else {
+                session()->flash('warning', '请查看你的邮箱，验证你的账号');
 
-    		return redirect()->back();
-    	}
+                return redirect()->back();
+            }
+        } else {
+            session()->flash('danger', '很抱歉， 邮箱或密码不匹配');
+
+            return redirect()->back();
+        }
+    	
     }
 
     // 用户退出
