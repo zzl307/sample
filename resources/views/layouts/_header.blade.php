@@ -8,7 +8,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (Auth::check())
                         <li>
-                            <a href="#">用户列表</a>
+                            <a href="{{ route('users.index') }}">用户列表</a>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -21,7 +21,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="{{ route('users.edit', Auth::user()->id) }}">
                                     编辑资料
                                 </a>
                             </li>
@@ -47,7 +47,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="{{ route('login') }}">
                                 登录
                             </a>
                         </li>
