@@ -40,6 +40,7 @@ p {
 	line-height: 1.7em;
 }
 /* header*/
+
 .navbar-inverse {
 	background-color: $navbar-color;
 }
@@ -55,6 +56,13 @@ p {
 	&:hover {
 		color: #fff;
 	}
+}
+
+#logout {
+  cursor: default;
+  &:hover {
+    background-color: transparent;
+  }
 }
 
 /* sidebar */
