@@ -28,7 +28,7 @@ class SessionsController extends Controller
            	'password' => 'required'
     	]);
 
-        if (\Auth::user()->activated) {
+        if (!empty(\Auth::user()) && \Auth::user()->activated) {
             if (\Auth::attempt($credentials, $request->has('remember'))) {
                 session()->flash('success', '登录成功');
 
