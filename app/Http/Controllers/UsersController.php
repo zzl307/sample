@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Auth\validate;
 use Illuminate\Http\Request;
+use Mail;
 
 class UsersController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth', [
-            'except' => ['show', 'create', 'store', 'index']
+            'except' => ['show', 'create', 'store', 'index', 'confirmEmail']
         ]);
 
         $this->middleware('guest', [
@@ -54,10 +55,10 @@ class UsersController extends Controller
     		'password' => bcrypt(request()->password)
     	]);
 
-        \Auth::login($user);
-    	session()->flash('success', '注册成功');
+        $this->sendEmailConfirmationTo($user);
+    	session()->flash('success', '验证码已经发到你的邮件，请去验证');
 
-    	return redirect()->route('users.show', [$user]);
+    	return redirect('/');
     }
 
     // 用户修改页面
@@ -96,5 +97,33 @@ class UsersController extends Controller
         session()->flash('success', '删除成功');
 
         return redirect()->back();
+    }
+
+    // 用户注册验证
+    public function confirmEmail($token)
+    {
+        $user = User::where('activation_token', $token)->firstOrFail();
+
+        $user->activated = true;
+        $user->activation_token = null;
+        $user->save();
+
+        \Auth::login($user);
+        session()->flash('success', '用户注册验证成功');
+        return redirect()->route('users.show', [$user]);
+    }
+
+    protected function sendEmailConfirmationTo($user)
+    {
+        $view = 'emails.confirm';
+        $data = compact('user');
+        $from = 'zb@exands.com';
+        $name = 'zb';
+        $to = $user->email;
+        $subject = '感谢你注册本应用';
+
+        Mail::send($view, $data, function ($message) use ($from, $name, $to, $subject) {
+            $message->from($from, $name)->to($to)->subject($subject);
+        });
     }
 }
