@@ -30,7 +30,6 @@ Route::post('login', 'SessionsController@store')->name('login');
 
 // 用户退出
 Route::delete('logout', 'SessionsController@destroy')->name('logout');
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
