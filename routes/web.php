@@ -23,3 +23,10 @@ Route::get('/index', 'StaticPagesController@index');
 
 // 显示用户的信息
 Route::resource('users', 'UsersController');
+
+// 登录
+Route::get('login', 'SessionController@create')->name('login');
+Route::post('login', 'SessionController@store')->name('login');
+
+// 退出
+Route::delete('logout', 'SessionController@destroy')->name('logout');
