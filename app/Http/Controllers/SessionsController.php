@@ -28,8 +28,8 @@ class SessionsController extends Controller
            	'password' => 'required'
     	]);
 
-        if (!empty(\Auth::user()) && \Auth::user()->activated) {
-            if (\Auth::attempt($credentials, $request->has('remember'))) {
+        if (\Auth::attempt($credentials, $request->has('remember'))) {
+            if (\Auth::user()->activated) {
                 session()->flash('success', '登录成功');
 
                 return redirect()->intended(route('users.show', [\Auth::user()]));
