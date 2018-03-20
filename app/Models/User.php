@@ -57,4 +57,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Status::class);
     }
+
+    // 取出用户发布消息
+    public function feed()
+    {
+        return $this->status()
+                    ->orderBy('created_at', 'desc');
+    }
 }

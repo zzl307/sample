@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Status;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class StatusesController extends Controller
@@ -22,6 +24,18 @@ class StatusesController extends Controller
     		'content' => $request['content']
     	]);
 
+        session()->flash('success', '发布成功');
+
     	return redirect()->back();
+    }
+
+    // 用户删除消息
+    public function destroy(Status $status)
+    {   
+        $this->authorize('destroy', $status);
+        $status->delete();
+        session()->flash('success', '删除成功');
+
+        return redirect()->back();
     }
 }

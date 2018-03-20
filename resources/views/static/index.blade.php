@@ -5,5 +5,8 @@
 @stop
 
 @section('content')
+
+	@include('static_pages.home')
+
 	zb web
 @stop

@@ -1,6 +1,6 @@
 <form action="{{ route('statuses.store') }}" method="POST">
 
-	@include('shared._errors')
+	@include('shared._error')
 
 	{{ csrf_field() }}
 	
