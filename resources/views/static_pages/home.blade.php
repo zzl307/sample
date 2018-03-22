@@ -26,7 +26,7 @@
             </h1>
             <p class="lead">
                 你现在所看到的是
-                <a href="https://laravel-china.org/laravel-tutorial/5.1">
+                <a href="#">
                     Laravel 入门教程
                 </a>
                 的项目主页。
